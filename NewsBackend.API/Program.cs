@@ -1,8 +1,13 @@
 using Microsoft.AspNetCore.OpenApi;
+using Microsoft.EntityFrameworkCore;
+using NewsBackend.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<NewsDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddOpenApi(options =>
 {
