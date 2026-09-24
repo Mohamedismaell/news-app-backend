@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NewsBackend.Application\NewsBackend.Application.csproj" />
+    <ProjectReference Include="..\NewsBackend.Domain\NewsBackend.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
