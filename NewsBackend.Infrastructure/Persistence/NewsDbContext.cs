@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using NewsBackend.Application.Interfaces;
 using NewsBackend.Domain.Entities;
 
 namespace NewsBackend.Infrastructure.Persistence;
 
-public class NewsDbContext : DbContext
+public class NewsDbContext : DbContext, IAppDbContext
 {
     public NewsDbContext(DbContextOptions<NewsDbContext> options) : base(options)
     {
