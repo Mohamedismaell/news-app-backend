@@ -1,5 +1,38 @@
-.vs/
+# .NET build output
 bin/
 obj/
+
+# Visual Studio / JetBrains
+.vs/
+.idea/
 *.user
 *.suo
+*.userprefs
+
+# ReSharper / Rider
+_ReSharper*
+*.DotSettings.user
+
+# Test results
+coverage/
+*.coverage
+*.coveragexml
+[Tt]est[Rr]esult*/
+*.trx
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Secrets / environment
+.env
+.env.*
+!*.env.example
+appsettings.Local.json
+appsettings.Production.json
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store

@@ -1,34 +1,36 @@
+using Microsoft.AspNetCore.OpenApi;
 
-namespace NewsBackend.API
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+
+builder.Services.AddOpenApi(options =>
 {
-    public class Program
+    options.AddDocumentTransformer((document, context, cancellationToken) =>
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+        document.Info.Title = "News Backend API";
+        document.Info.Version = "v1";
+        document.Info.Description = "News REST API built with Clean Architecture (ASP.NET Core, EF Core, SQL Server, JWT).";
+        return Task.CompletedTask;
+    });
+});
 
-            // Add services to the container.
+var app = builder.Build();
 
-            builder.Services.AddControllers();
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
 
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
-        }
-    }
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "News Backend API v1");
+    });
 }
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();

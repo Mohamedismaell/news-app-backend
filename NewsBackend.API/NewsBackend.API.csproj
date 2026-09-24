@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NewsBackend.Application\NewsBackend.Application.csproj" />
+    <ProjectReference Include="..\NewsBackend.Infrastructure\NewsBackend.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
