@@ -13,6 +13,7 @@ public static class DependencyInjection
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<IArticleService, ArticleService>();
+        services.AddScoped<ICommentService, CommentService>();
         services.AddScoped<IImageService, CloudinaryImageService>();
         services.AddScoped<IJwtProvider, JwtProvider>();
 
