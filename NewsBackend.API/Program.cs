@@ -8,6 +8,7 @@ using NewsBackend.Application.Interfaces;
 using NewsBackend.Infrastructure;
 using NewsBackend.Infrastructure.Persistence;
 using NewsBackend.Infrastructure.Security;
+using NewsBackend.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,8 @@ var jwtSettings = builder.Configuration
     .Get<JwtOptions>() ?? new JwtOptions();
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.SectionName));
+
+builder.Services.Configure<CloudinaryOptions>(builder.Configuration.GetSection(CloudinaryOptions.SectionName));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
