@@ -9,4 +9,17 @@ public static class ClaimsPrincipalExtensions
         var value = principal.FindFirstValue(ClaimTypes.NameIdentifier);
         return value is not null && int.TryParse(value, out var userId) ? userId : 0;
     }
+
+    public static bool IsInRoles(this ClaimsPrincipal principal, params string[] roles)
+    {
+        foreach (var role in roles)
+        {
+            if (principal.IsInRole(role))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
