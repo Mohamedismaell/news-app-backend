@@ -11,6 +11,7 @@ public static class DependencyInjection
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<IImageService, CloudinaryImageService>();
         services.AddScoped<IJwtProvider, JwtProvider>();
 
