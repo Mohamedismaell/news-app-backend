@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using NewsBackend.Application.DTOs.Categories;
 using NewsBackend.Application.DTOs.Users;
 using NewsBackend.Domain.Enums;
@@ -14,6 +15,7 @@ public class ArticleSummaryResponse
 
     public string? ImageUrl { get; set; }
 
+    [JsonConverter(typeof(JsonStringEnumConverter<ArticleStatus>))]
     public ArticleStatus Status { get; set; }
 
     public DateTime? PublishedAt { get; set; }
