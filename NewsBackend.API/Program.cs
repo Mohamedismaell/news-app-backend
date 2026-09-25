@@ -172,4 +172,11 @@ app.MapControllers();
 
 app.MapHealthChecks("/api/v1/health");
 
+if (app.Environment.IsDevelopment())
+{
+    using var seedScope = app.Services.CreateScope();
+    var seeder = seedScope.ServiceProvider.GetRequiredService<IDbSeeder>();
+    await seeder.SeedAsync();
+}
+
 app.Run();

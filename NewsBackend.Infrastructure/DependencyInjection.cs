@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using NewsBackend.Application.Interfaces;
+using NewsBackend.Infrastructure.Persistence;
 using NewsBackend.Infrastructure.Security;
 using NewsBackend.Infrastructure.Services;
 
@@ -17,6 +18,7 @@ public static class DependencyInjection
         services.AddScoped<IBookmarkService, BookmarkService>();
         services.AddScoped<IImageService, CloudinaryImageService>();
         services.AddScoped<IJwtProvider, JwtProvider>();
+        services.AddScoped<IDbSeeder, DatabaseSeeder>();
 
         return services;
     }
