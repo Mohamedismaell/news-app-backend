@@ -32,7 +32,8 @@ public class CategoriesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<CategoryResponse>> Create([FromBody] CreateCategoryRequest request, CancellationToken cancellationToken)
     {
-        return Ok(await _categoryService.CreateAsync(request, cancellationToken));
+        var category = await _categoryService.CreateAsync(request, cancellationToken);
+        return CreatedAtAction(nameof(GetById), new { id = category.Id }, category);
     }
 
     [Authorize(Roles = "Admin")]

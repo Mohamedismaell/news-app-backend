@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NewsBackend.API.Extensions;
+using NewsBackend.API.Middleware;
 using NewsBackend.Application.DTOs.Articles;
 using NewsBackend.Application.DTOs.Common;
 using NewsBackend.Application.Interfaces;
@@ -28,7 +29,7 @@ public class ArticlesController : ControllerBase
     {
         if (query.Status.HasValue && !User.IsInRoles(ContentRoles))
         {
-            return Forbid();
+            return ForbiddenError();
         }
 
         return Ok(await _articleService.GetArticlesAsync(query, cancellationToken));
@@ -40,17 +41,30 @@ public class ArticlesController : ControllerBase
         var article = await _articleService.GetByIdAsync(id, cancellationToken);
         if (article.Status != ArticleStatus.Published && !User.IsInRoles(ContentRoles))
         {
-            return Forbid();
+            return ForbiddenError();
         }
 
         return Ok(article);
+    }
+
+    private ObjectResult ForbiddenError()
+    {
+        return new ObjectResult(new ErrorResponse(
+            StatusCodes.Status403Forbidden,
+            "You do not have permission to access this resource.",
+            null,
+            HttpContext.TraceIdentifier))
+        {
+            StatusCode = StatusCodes.Status403Forbidden
+        };
     }
 
     [Authorize(Roles = "Editor,Admin")]
     [HttpPost]
     public async Task<ActionResult<ArticleResponse>> Create([FromBody] CreateArticleRequest request, CancellationToken cancellationToken)
     {
-        return Ok(await _articleService.CreateAsync(User.GetUserId(), request, cancellationToken));
+        var article = await _articleService.CreateAsync(User.GetUserId(), request, cancellationToken);
+        return CreatedAtAction(nameof(GetById), new { id = article.Id }, article);
     }
 
     [Authorize(Roles = "Editor,Admin")]

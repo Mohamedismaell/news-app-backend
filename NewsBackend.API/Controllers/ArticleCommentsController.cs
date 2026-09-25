@@ -34,6 +34,7 @@ public class ArticleCommentsController : ControllerBase
         [FromBody] CreateCommentRequest request,
         CancellationToken cancellationToken)
     {
-        return Ok(await _commentService.CreateAsync(articleId, User.GetUserId(), request, cancellationToken));
+        var comment = await _commentService.CreateAsync(articleId, User.GetUserId(), request, cancellationToken);
+        return CreatedAtAction(nameof(GetByArticle), new { articleId }, comment);
     }
 }
