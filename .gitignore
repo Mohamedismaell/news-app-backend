@@ -25,12 +25,19 @@ coverage/
 *.snupkg
 packages/
 
-# Secrets / environment
+# Secrets / environment — never commit real credentials
 .env
 .env.*
 !*.env.example
 appsettings.Local.json
+appsettings.Development.json
 appsettings.Production.json
+secrets.json
+*.pfx
+
+# Logs
+*.log
+logs/
 
 # OS files
 Thumbs.db
